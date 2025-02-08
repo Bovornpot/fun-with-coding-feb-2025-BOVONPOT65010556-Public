@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script> 
+    <title>Basic Calculator</title>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: lightblue;
+        }
+
+        .calculate {
+            background-color: aliceblue;
+            padding: 30px;
+            border-radius: 50px;
+            text-align: center;
+        }
+
+        input, select, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculate">
+        <input type="text" id="leftbox" placeholder="Enter number">
+        <select id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="%">%</option>
+        </select>
+        <input type="text" id="rightbox" placeholder="Enter number">
+        <button id="calculate">Try me!</button>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            function calculate() {
+                let leftbox = $("#leftbox").val().trim();
+                let rightbox = $("#rightbox").val().trim();
+                let operator = $("#operator").val();
+
+                if (!/^\d+$/.test(leftbox) || !/^\d+$/.test(rightbox)) {
+                    alert("Error :(");
+                    console.log("Error :(");
+                    return;
+                }
+
+                let num1 = parseInt(leftbox);
+                let num2 = parseInt(rightbox);
+                let result;
+
+                if (num1 < 0 || num2 < 0) {
+                    alert("Error :(");
+                    console.log("Error :(");
+                    return;
+                }
+
+                if ((operator === "/" || operator === "%") && num2 === 0) {
+                    alert("It’s over 9000!");
+                    console.log("It’s over 9000!");
+                    return;
+                }
+
+                switch (operator) {
+                    case "+": result = num1 + num2; break;
+                    case "-": result = num1 - num2; break;
+                    case "*": result = num1 * num2; break;
+                    case "/": result = num1 / num2; break;
+                    case "%": result = num1 % num2; break;
+                }
+
+                alert("Result: " + result);
+                console.log("Result:", result);
+            }
+
+            $("#calculate").on("click", calculate);
+
+            //Alert ทุก 30 วินาที
+            setInterval(() => {
+                alert("Please, use me...");
+            }, 30000);
+        });
+    </script>
+
+</body>
+</html>
